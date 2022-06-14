@@ -1,0 +1,115 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+// id:322786757
+#include <stdio.h>
+#include <stdbool.h>
+ const int zero=0;
+
+int containsNonPrimesDigitsOnly(int num){
+    const int ten=10;// constant number
+    int num2;
+   
+    while (num != zero) {
+        num2 = num % 10;
+        if((num2==2)|| (num2==3)||(num2==5)||(num2==7))// check the digit if it is prime number
+        return zero; // the num contains a prime number
+        else 
+        num /= ten; 
+}
+return 1;}
+
+int isPalindrom(int num){
+    int num1=zero;
+    int num2;
+    int SameNum=num;
+    const int ten=10;
+    while (num != zero) {
+        num2 = num % 10;
+        num1 = (num1 * 10) + num2;
+        num /= ten;
+    }
+
+    // check  if the num is palindrome
+    if (SameNum == num1)
+   return 1;
+   else
+    return 0;
+}
+int isNumPrime(int x)//check  if the num is the number a prime
+{
+   
+    
+   if(x==1 || x==0)
+    return 0;
+    
+    else {for(int i = 2; i <= x/2 ; i++)
+    {
+        if(x % i == zero)
+            return 0;
+    
+    
+}}
+    return 1;//the num is prime
+}
+
+
+
+    int NextPrime(int N)//function that give u the less prime num that come affter the num that u put 
+{
+     int found = 0;
+
+
+    while(found==zero)
+    {
+         N++;
+        found = isNumPrime(N);
+       
+    }
+
+
+    return (N);
+}
+
+
+int isSpecial(int num) {//func that give u all the  numbers that they contains Non Primes Digits andte num must be a Palindrom and
+    if ((containsNonPrimesDigitsOnly(num)==1 ) && (isPalindrom(num)==1) && (isNumPrime(num)==1))
+    return 1;
+    else 
+    return 0;
+}
+
+
+void printAllSpecial(int from, int to){//print all the number that they are specials
+    int a;
+    int b=to;
+    for(a=from;a<b;a++){
+    if(isSpecial(a))//check if the num is special
+    printf("%d\n",a);
+}}
+
+
+int main(){
+    printf("%d\n",isNumPrime(9));
+     printAllSpecial(0,12);
+     printf("%d\n",isSpecial(1321));
+     printf("%d\n",NextPrime(12));
+     printf("%d\n",containsNonPrimesDigitsOnly(486));
+}
+
+
+
+
+
+
+
+
+
+
+
+

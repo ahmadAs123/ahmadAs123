@@ -1,0 +1,301 @@
+//id:322786757
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define L 20
+const int N=20;
+int k = 0;
+int a = 0;
+int b = 0;
+int c=0;
+int m=0;
+
+
+typedef struct recommender // struct for recommender
+{
+
+  char Name[20];
+  char Family[20];
+  char Email[20];
+
+
+} Recommender;
+
+
+
+
+typedef struct developer // structure for developer
+{
+
+  char Name[20];
+  char Family[20];
+  char Toar[20];
+  Recommender *R2;
+  Recommender *R1;
+  struct developer *D1;
+  struct developer *D2;
+
+
+} Developer;
+
+
+
+
+void Printcandidates (Developer * candidates[]) // prints all the candidates 
+{
+    int i=0;
+  for (i = 0; i < N; i++)
+    {
+      if (candidates[i] != NULL)
+	{
+	  printf ("\nName of the person :");
+	  printf ("%s", candidates[i]->Name);
+	  printf ("\n Name of the Family :");
+	  printf ("%s", candidates[i]->Family);
+	  printf ("\nToa'r :");
+	  printf ("%s", candidates[i]->Toar);
+
+
+	  if (candidates[i]->R1 != NULL)
+	    {
+	      printf ("\nFirst Recommender out the company name:"); // print the recommender that out the company
+	      printf ("%s\n", candidates[i]->R1->Name);
+	      printf ("\n First Recommender out the company family:");
+	      printf ("%s\n", candidates[i]->R1->Family);
+	      printf ("\nFirst Recommender out the company Email:");
+	      printf ("%s\n", candidates[i]->R1->Email);
+	    }
+
+
+
+	  if (candidates[i]->R2 != NULL)// check is there a  second recommender out the company
+	    {
+	      printf ("\n Second Recommender out the company name:"); // print the information of the second recommender
+	      printf ("%s\n", candidates[i]->R2->Name);
+	      printf ("\n Second Recommender out the company family:");
+	      printf ("%s\n", candidates[i]->R2->Family);
+	      printf ("\n Second Recommender out the company Email:");
+	      printf ("%s\n", candidates[i]->R2->Email);
+	    }
+
+	  if (candidates[i]->D1 != NULL) // check if there is a recommender in the company 
+	    {
+	      printf ("\n First Recommender in the company name:");
+	      printf ("%s\n", candidates[i]->D1->Name);
+	      printf ("\n First Recommender in the company family:");
+	      printf ("%s\n", candidates[i]->D1->Family);
+
+	    }
+ if (candidates[i]->D2 != NULL)// check if there is second recommender in the company 
+	    {
+	      printf ("\n Second Recommender in the company name:");
+	      printf ("%s\n", candidates[i]->D2->Name);
+	      printf ("\n Second Recommender in the company Family:");
+	      printf ("%s\n", candidates[i]->D2->Family);
+
+	    }
+
+
+	}
+    }
+}
+
+void Printworkers (Developer * employees[]) //print all the workers in the array 
+{
+    int i;
+  for (i = 0; i < N; i++)
+    {
+      if (employees[i] != NULL)//check if there a employee in the i place
+	{
+
+	  printf ("\nName of the employye:");
+	  printf ("%s", employees[i]->Name);
+	  printf ("\nName of the Family :");
+	  printf ("%s", employees[i]->Family);
+
+
+	}
+    }
+}
+
+void InsertnewCandidate (Developer * candidates[],Developer * employees[])//insert new candidates 
+{
+
+  candidates[k] = (Developer *) malloc (sizeof (Developer));
+  candidates[k]->R1 = NULL;
+  candidates[k]->D1 = NULL;
+  candidates[k]->R2 = NULL;
+  candidates[k]->D2 = NULL;
+
+
+  if (candidates[k] != NULL)//put the information in the empty place in the array
+    {
+      printf ("\nName of the candidate  :\n");
+      scanf ("%s", candidates[k]->Name);
+      printf (" Name of the Family :\n");
+      scanf ("%s", candidates[k]->Family);
+      printf ("Toa'r :\n");
+      scanf ("%s", candidates[k]->Toar);
+
+
+      printf("if you have a  recommenders out of the company press 1 else press 0:");
+      scanf ("%d", &a);
+      if (a == 1)// there is a 1 recommender out of the company
+	{
+	  candidates[k]->R1 = (Recommender *) malloc (sizeof (Recommender));
+	  printf ("Name of the recommender:\n");
+	  scanf ("%s", candidates[k]->R1->Name);
+	  printf ("Name of the Family:\n");
+	  scanf ("%s", candidates[k]->R1->Family);
+	  printf (" The personal Email:\n");
+	  scanf ("%s", candidates[k]->R1->Email);
+
+	}
+      printf("if you have another  recommender out of the company press 1 else press 0:");
+      scanf ("%d", &b);
+      if (b == 1)//there is a second recommender out of the company 
+	{
+	  candidates[k]->R2 = (Recommender *) malloc (sizeof (Recommender));
+	  printf ("Name  of the recommender:\n");
+	  scanf ("%s", candidates[k]->R2->Name);// insert name and saveit in the correct place
+	  printf ("Name of the Family:\n");
+	  scanf ("%s", candidates[k]->R2->Family); //insert family and saveit in the correct place
+	  printf (" The personal Email:\n");
+	  scanf ("%s", candidates[k]->R2->Email);//insert email and saveit in the correct place
+
+	}
+      printf("if you have a recommender in  the company press 1 else press 0:");
+      char nd1[L];
+      char fd1[L];
+      char nd2[L];
+      char fd2[L];  
+      
+      scanf ("%d", &c);
+      
+      if (c == 1) { // there is recommender in the company
+      printf ("The  Name:\n");
+	  scanf ("%s",nd1 );
+	  printf ("Name of the Family:\n");
+	  scanf ("%s", fd1);
+	  
+	  for (int p=0;p<N;p++) { // search about the name and family if is in the employee array  
+	   if (employees[p]!=NULL && strcmp (employees[p]->Name, nd1) == 0 && strcmp (employees[p]->Family, fd1) == 0){
+	   candidates[k]->D1= employees[p];		 
+       break;}
+	  }
+          
+      }
+       
+      printf("if you have another recommender in the company press 1 else press 0:");
+      scanf("%d",&m);
+    if(m==1){// there is another recommender in the company
+        printf ("The Name:\n");
+	  scanf ("%s",nd2 );
+	  printf ("Name of the Family:\n");
+	  scanf ("%s", fd2);
+	  for (int v=0;v<N;v++) {// search about the name and family if is in the employee array  
+	      
+	   if (employees[v]!=NULL && strcmp (employees[v]->Name, nd2) == 0 && strcmp (employees[v]->Family, fd2) == 0){
+    		  candidates[k]->D2= employees[v];
+       break;}}}
+    
+
+  k++;
+    }
+
+}
+
+
+void Hirecandidate (Developer * candidates[N], Developer * employees[N])// hire candidates to be workers in the company
+{
+  char n[20];
+  char f[20];
+  printf ("\nName of the person :");// put name and family of the candidte that u want to hire 
+  scanf ("%s", n);
+  printf ("\nName of the Family :");
+  scanf ("%s", f);
+  for (int j = 0; j < N; j++)
+    {
+      if (candidates[j] == NULL)// if there isno worker skip 
+	{
+	  continue;
+	}
+
+      if (strcmp (candidates[j]->Name, n) == 0 && strcmp (candidates[j]->Family, f) == 0) // if is the name that u insert was in the candidates
+	{
+	  for (int p = 0; p < N; p++)
+	    {
+    	      if (employees[p] == NULL)
+    		{
+    		  employees[p] = candidates[j]; // he became a worker
+    		  candidates[j]->R1 = NULL;
+    		  candidates[j]->D1 = NULL;
+    		  candidates[j]->R2 = NULL;
+    		  candidates[j]->D2 = NULL;
+    		  candidates[j] = NULL;
+    		  break;
+    		}
+    		
+
+	    }
+	  break;
+
+	}
+
+
+    }
+}
+
+void Exit (Developer * candidates[N], Developer * employees[N])// finish the programm
+{
+
+  for (int j = 0; j < N; j++)
+    {
+      free (candidates[j]->R1);
+      free (candidates[j]->R2);
+      free(candidates[j]);
+      free (employees[j]);
+      
+
+
+
+    }
+    exit (0);
+}
+
+
+void main ()
+{
+  int num;
+  Developer *employees[N], *candidates[N];
+  for (int i = 0; i < N; i++)//put all the array null 
+    {
+      employees[i] = NULL;
+      candidates[i] = NULL;
+
+    }
+  do
+    {
+      printf
+	("\nWelcome, what do you want to do?\n 1. Print candidates \n 2. Printworkers\n 3. Insert new Candidate \n 4. Hire candidate \n 5. Exit");
+      scanf ("%d", &num);
+      if (num == 1)
+	Printcandidates (candidates);
+      else if (num == 2)
+	Printworkers (employees);
+      else if (num == 3)
+	InsertnewCandidate (candidates,employees);
+      else if (num == 4)
+	Hirecandidate (candidates, employees);
+    }
+  while (num != 5);
+  if (num == 5)
+    Exit (candidates, employees);
+}
+
+
+
+
+
+
+
